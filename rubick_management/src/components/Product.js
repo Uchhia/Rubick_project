@@ -9,20 +9,27 @@ import monent from 'moment';
 
 
 export default function Product() {
-  
+ 
+  //state  
   const [product, setProduct] = useState([]);
   const [totalpages,settotalPages]=useState(1);
   
-
-  useEffect(() => {
+ //fetching in prdouct
+     useEffect(() => {
     axios.get("/all")
-      .then(res=>setProduct(res.data))
-      .then(err=>console.log(err))
-    })
+       .then(res=>{
+        let temp=[...res.data]
+        temp.map((element)=>{
+          element.date=monent(element.date).format("MMM-Do-YY")
+        })
+        setProduct(temp)})
+       .then(err=>console.log(err))
+     })
 
 
-
-  const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+  //Table Schema
   const columns = [
     {
       title:'Code',
@@ -58,35 +65,27 @@ export default function Product() {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
-      render:(tag)=>{
-        return <Tag key={tag}>{tag.monent()}</Tag>
-      }
+      
     },
   ]
   return (
     <div>
-      <div  >
-  
-       <p style={{color:"black",fontSize:"20px"}}><b>Products</b>
-
-       <NavLink to='/add' style={({isActive})=>{return {color:isActive?'#345aee':'#89898b'}}}><Avatar style={{marginLeft:"15px"}} icon={<PlusCircleOutlined/>}/></NavLink>
-        <Routes>
-        <Route path ='/add' element={<Addproduct/>}/>
-        </Routes>
-      
-      
-        <Select  style={{float:"right",width:"200px"}} placeholder='Months' defaultValue={'January'} >
-          {months.map((month,index)=>{
+      <div>
+        <p style={{color:"black",fontSize:"20px"}}><b>Products</b>
+          <NavLink to='/add' style={({isActive})=>{return {color:isActive?'#345aee':'#89898b'}}}><Avatar style={{marginLeft:"15px"}} icon={<PlusCircleOutlined/>}/></NavLink>
+          <Routes>
+            <Route path ='/add' element={<Addproduct/>}/>
+          </Routes>
+          <Select  style={{float:"right",width:"200px"}} placeholder='Months' defaultValue={'January'} >
+            {months.map((month,index)=>{
             return <Select.Option key={index} value={month}></Select.Option>
           })}
-
-        </Select></p>
-      
-
+         </Select>
+        </p>
       </div>
-      <Table columns={columns}   dataSource={product} pagination={{pageSize:7}}/>
-      
-      
+      <div>
+        <Table columns={columns}   dataSource={product} pagination={{pageSize:7}}/>
+      </div>
     </div>
   );
 }

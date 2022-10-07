@@ -1,5 +1,6 @@
 import React from 'react'
 
+//home page component
 export default function Home() {
   return (
     <div style={{wordWrap:"break-word",width:"100%"}}>

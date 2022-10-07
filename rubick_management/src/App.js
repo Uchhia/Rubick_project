@@ -17,9 +17,6 @@ import Addproduct from './components/Addproduct';
 
 const { Header, Sider, Content } = Layout;
 
-
-
-
 function App() {
   return (
     <div className='App'>
@@ -35,8 +32,7 @@ function App() {
                 <li><NavLink to="/home"  style={({isActive})=>{return {color:isActive?'#345aee':'#89898b'}}}>Home</NavLink></li>
                 <li><NavLink to="/Product" style={({isActive})=>{return {color:isActive?'#345aee':'#89898b'}}}>Products</NavLink></li>
                 <li><NavLink to='/settings' style={({isActive})=>{return {color:isActive?'#345aee':'#89898b'}}}>Settings</NavLink></li>
-               
-              </ul>
+               </ul>
             </Sider>
             <Content style={{marginLeft:"200px",width:"100%",backgroundColor:"lightgray",paddingInline:"40px",height:"120vh",paddingBlock:"50px",wordWrap:"break-word"}}>
                 <Routes>
@@ -45,8 +41,6 @@ function App() {
                   <Route path ='/Product' element={<Product/>}/>
                   <Route path ='/settings' element={<Settings/>}/>
                   <Route path ='/add' element={<Addproduct/>}/>
-                 
-                  
                 </Routes>
             </Content>
           </Layout>

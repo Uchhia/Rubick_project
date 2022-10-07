@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-
+//Schema for Product colllection
 const Product=mongoose.Schema({
     code:{
         type:Number,

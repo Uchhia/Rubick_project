@@ -2,12 +2,8 @@ import React from 'react';
 import axios  from 'axios';
 import {Form, Input, Row,  Button,  message,Switch} from 'antd'
 
-
-
-
+//Add product function Component
 export default function Addproduct() {
-  //const [state,setState]=useState({});
-  //=const state={}
   const onFinish=(e)=>{
     let status
     if(e.status)
@@ -23,6 +19,8 @@ export default function Addproduct() {
       price:e.Price,
       date:Date()
      }
+
+     //adding data 
     axios.post("/new",state)
     .then(()=>{
       setTimeout(()=>{
@@ -30,7 +28,6 @@ export default function Addproduct() {
       },2000)
     })
     .catch(err=>console.log(err))
-    
   }
 
   return (
@@ -40,11 +37,9 @@ export default function Addproduct() {
           <Form  onFinish={onFinish} layout='vertical'>
             <Row>
             <Form.Item name="ProductCode" label="Product Code" rules={[
-              
               {
                 whitespace:true,
-                required:true,
-                
+                required:true
               },{
                 pattern: new RegExp(/^\d+$/g),
                 message: "Wrong format!"
@@ -61,13 +56,10 @@ export default function Addproduct() {
               <Switch checkedChildren='Active' unCheckedChildren='Inactive'   name="status" style={{width:"100px",height:"25px"}}/>
               </Form.Item>
             </Row>
-            
-
             <Form.Item name="Name" label="Name" rules={[
-              
               {
                 whitespace:true,
-                required:true,
+                required:true
                 
               },{
                 pattern: new RegExp (/^[A-Za-z]+$/),
@@ -81,10 +73,9 @@ export default function Addproduct() {
               <Input  style={{width:"545px",height:"50px"}} placeholder='Name'/>
             </Form.Item>
             <Form.Item name="Quantity" label="Quantity" rules={[
-              
               {
                 whitespace:true,
-                required:true,
+                required:true
                 
               },{
                 pattern: new RegExp(/^\d+$/g),
@@ -104,24 +95,23 @@ export default function Addproduct() {
               
               {
                 whitespace:true,
-                required:true,
+                required:true
                 
               },{
                 pattern: new RegExp(/^\d+$/g),
                 message: "Wrong format!"
-
               }
             ]}>
-              <Input style={{width:"400px",height:"50px"}} placeholder='Price'/>
-            </Form.Item>
-            <Form.Item>
+          <Input style={{width:"400px",height:"50px"}} placeholder='Price'/>
+          </Form.Item>
+          <Form.Item>
             <Button type='primary' htmlType='reset' shape='round' style={{color:"darkgray", backgroundColor:"grey",width:"175px" ,height:"40px"}}>Cancel</Button>
               <Button type='primary' htmlType='submit' shape='round' style={{marginLeft:"20px",width:"175px" ,height:"40px"}}>Submit</Button>
-            </Form.Item>
+          </Form.Item>
 
             
-          </Form>
-        </div>
+        </Form>
+      </div>
       
     </div>
   );

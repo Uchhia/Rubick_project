@@ -1,15 +1,14 @@
 const Product= require('../Models/Product_model')
 const bodyparser=require('body-parser');
 const { Console } = require('console');
+
+//fetching Product
 exports.getAll=async(req,res)=>{
     await Product.find().then((product)=>res.send(product))
-    
 }
 
+//adding Product
 exports.add= async(req,res)=>{
-    //console.log(req.body);
-
-
     let product = new Product({
         code:req.body.code,
         name:req.body.name,
