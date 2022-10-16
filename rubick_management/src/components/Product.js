@@ -13,10 +13,11 @@ export default function Product() {
   //state  
   const [product, setProduct] = useState([]);
   const [totalpages,settotalPages]=useState(1);
+  const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
  //fetching in prdouct
      useEffect(() => {
-    axios.get("/all")
+    axios.get(`/all`)
        .then(res=>{
         let temp=[...res.data]
         temp.map((element)=>{
@@ -24,11 +25,21 @@ export default function Product() {
         })
         setProduct(temp)})
        .then(err=>console.log(err))
-     })
+     },[])
 
+      const handlechange=(value)=>{
+        var id=months.indexOf(value)+1;
+        axios.get(`/fil/${id}`)
+       .then(res=>{
+        let temp=[...res.data]
+        temp.map((element)=>{
+          element.date=monent(element.date).format("MMM-Do-YY")
+        })
+        setProduct(temp)})
+       .then(err=>console.log(err))
 
-const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  
+     }
+
   //Table Schema
   const columns = [
     {
@@ -76,7 +87,7 @@ const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', '
           <Routes>
             <Route path ='/add' element={<Addproduct/>}/>
           </Routes>
-          <Select  style={{float:"right",width:"200px"}} placeholder='Months' defaultValue={'January'} >
+          <Select  style={{float:"right",width:"200px"}} placeholder='Months' defaultValue={'January'} onChange={handlechange}  >
             {months.map((month,index)=>{
             return <Select.Option key={index} value={month}></Select.Option>
           })}

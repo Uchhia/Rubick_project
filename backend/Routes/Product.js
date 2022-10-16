@@ -11,4 +11,7 @@ router.get('/all',controlers.getAll)
 
 //Routes for Adding product
 router.post('/new',controlers.add);
+
+router.get('/fil/:id',controlers.filter)
+
 module.exports=router;
